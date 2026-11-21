@@ -20,6 +20,29 @@ The server also sets `Cache-Control: no-cache, no-store, must-revalidate` on eve
 
 ---
 
+## Cover wall (grid mode)
+
+The default view is a plain list of track names. Add `?grid=1` to render a cover-art wall instead — recent tracks in a grid of album covers with the track name and artist under each tile:
+
+```markdown
+![Spotify cover wall](https://your-server.example.com/?grid=1)
+```
+
+Options:
+
+| Parameter | Description |
+|-----------|-------------|
+| `grid` | `1` / `true` / `yes` enables the cover wall; omit it for the classic list |
+| `width` | Canvas width in px (default `700`). Columns are derived from the width; below `176` the request is rejected with `400` |
+
+Details:
+
+- Covers are downloaded server-side, validated (max 512 KB, sniffed JPEG/PNG/GIF/WebP only), cached in memory, and embedded as data URIs — visitors never request third-party image hosts.
+- Missing, oversized, or invalid covers render as a placeholder tile; the track name and artist are still shown.
+- Repeated plays of the same track are shown once.
+
+---
+
 ## Deploy on Vercel (Recommended)
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/lsnnt/spotify-banner-for-github)
